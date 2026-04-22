@@ -138,7 +138,7 @@ body::before {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  font-size: 0.78rem;
+  font-size: 0.5rem;
   color: #fff0eb;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -148,7 +148,7 @@ body::before {
 .arcana-chip {
   border: 1px solid rgba(255, 227, 219, 0.42);
   border-radius: 999px;
-  padding: 0.15rem 0.55rem;
+  padding: 0.5rem;
   color: #fff3ef;
   background: rgba(255, 233, 226, 0.14);
   max-width: 64%;

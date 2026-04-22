@@ -115,9 +115,9 @@ function setInitialCardState() {
     "Noch ist alles offen. Zieh zuerst eine Karte, damit ihre Tagesbedeutung sichtbar werden kann.";
   renderBuzzwords(["Tageskarte", "Neugier", "Erster Schritt"]);
   renderDayImpulses([
-    "Klick auf „Karte ziehen“, wenn du bereit fuer deinen Tagesimpuls bist.",
+    "Klick auf „Karte ziehen“, wenn du bereit für deinen Tagesimpuls bist.",
     "Lies die gezogene Karte eher als Orientierung denn als starre Vorhersage.",
-    "Nimm dir nur das mit, was sich fuer dich heute wirklich stimmig anfuehlt."
+    "Nimm dir nur das mit, was sich für dich heute wirklich stimmig anfühlt."
   ]);
   dom.shortTakeElement.textContent = "Kurz gesagt: Deine Botschaft wartet auf ihren Moment.";
   dom.closingSummaryElement.textContent =
