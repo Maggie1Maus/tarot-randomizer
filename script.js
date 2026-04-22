@@ -1,153 +1,5 @@
-﻿const majorArcana = [
-  ["Der Narr", 0, "Neubeginn, Mut zum Schritt ins Unbekannte.", "Überstürzung oder fehlende Erdung bremsen deinen Weg."],
-  ["Der Magier", 1, "Fokussierte Kraft und die Fähigkeit, Dinge zu gestalten.", "Zerstreute Energie oder Selbstzweifel schwächen deine Wirkung."],
-  ["Die Hohepriesterin", 2, "Intuition, Stille und inneres Wissen führen dich.", "Ignorierte Gefühle oder Unsicherheit trüben die Wahrnehmung."],
-  ["Die Herrscherin", 3, "Fülle, Kreativität und Fürsorge wachsen in deinem Umfeld.", "Überfürsorge oder mangelnde Selbstfürsorge bringen Ungleichgewicht."],
-  ["Der Herrscher", 4, "Struktur, Verantwortung und klare Grenzen schaffen Stabilität.", "Zu viel Kontrolle oder Starrheit blockieren Entwicklung."],
-  ["Der Hierophant", 5, "Werte, Tradition und Lernen durch erfahrene Wege.", "Blindes Folgen oder innere Rebellion erschweren Orientierung."],
-  ["Die Liebenden", 6, "Wichtige Wahl aus dem Herzen und echte Verbindung.", "Unklare Entscheidungen oder innere Zerrissenheit halten fest."],
-  ["Der Wagen", 7, "Entschlossenheit und klare Richtung bringen dich voran.", "Aktionismus ohne Fokus führt zu Reibung."],
-  ["Die Kraft", 8, "Sanfte Stärke, Geduld und Selbstführung tragen dich.", "Innere Anspannung oder Selbstkritik kosten Energie."],
-  ["Der Eremit", 9, "Rückzug, Erkenntnis und ein tiefer Blick nach innen.", "Isolation oder Grübeln ohne Umsetzung verlangsamen dich."],
-  ["Das Rad des Schicksals", 10, "Wandel ist in Bewegung, neue Chancen öffnen sich.", "Widerstand gegen Veränderung fühlt sich wie Stillstand an."],
-  ["Die Gerechtigkeit", 11, "Klarheit, Ausgleich und ehrliche Entscheidungen sind gefragt.", "Unausgewogenheit oder Verdrängung erschweren faire Lösungen."],
-  ["Der Gehängte", 12, "Ein Perspektivwechsel bringt überraschende Einsicht.", "Festhalten am Alten verhindert einen notwendigen Shift."],
-  ["Der Tod", 13, "Ein Abschluss macht Raum für eine kraftvolle Erneuerung.", "Loslassen fällt schwer und bindet dich an Vergangenes."],
-  ["Die Mäßigkeit", 14, "Harmonie, Heilung und kluge Balance entstehen.", "Extreme oder Ungeduld stören den inneren Ausgleich."],
-  ["Der Teufel", 15, "Erkenne Bindungen, um bewusster frei zu wählen.", "Abhängige Muster oder Verdrängung halten dich klein."],
-  ["Der Turm", 16, "Ein Umbruch klärt, was keine tragfähige Basis hatte.", "Angst vor Veränderung verstärkt die innere Unruhe."],
-  ["Der Stern", 17, "Hoffnung, Sinn und stille Zuversicht leuchten auf.", "Zweifel oder Erschöpfung verdecken den Blick auf Möglichkeiten."],
-  ["Der Mond", 18, "Feine Signale, Träume und tiefe Gefühle zeigen den Weg.", "Verwirrung oder Projektionen machen die Lage diffuser."],
-  ["Die Sonne", 19, "Lebenskraft, Freude und klare Sicht stärken dich.", "Ego oder fehlende Erdung können den Moment trüben."],
-  ["Das Gericht", 20, "Erwachen, Erkenntnis und ein klarer innerer Ruf.", "Aufschub oder Selbstverurteilung verhindern den nächsten Schritt."],
-  ["Die Welt", 21, "Vollendung, Integration und ein neuer Zyklus starten.", "Unvollendete Themen wollen erst abgeschlossen werden."]
-];
-
-const suitLabels = {
-  staves: "Stäbe",
-  cups: "Kelche",
-  swords: "Schwerter",
-  pentacles: "Münzen"
-};
-
-const suitSymbols = {
-  staves: "♐",
-  cups: "☽",
-  swords: "✶",
-  pentacles: "◉"
-};
-
-const ranks = [
-  ["Ass", "Aufbruch und klare Initialenergie."],
-  ["Zwei", "Polarität, Wahl und erster Austausch."],
-  ["Drei", "Entfaltung, Ausdruck und erste Ergebnisse."],
-  ["Vier", "Stabilität, Ordnung und Konsolidierung."],
-  ["Fünf", "Reibung, Herausforderung und Lernmoment."],
-  ["Sechs", "Harmonie, Ausgleich und Fortschritt."],
-  ["Sieben", "Prüfung, Fokus und innere Klärung."],
-  ["Acht", "Bewegung, Dynamik und Struktur im Wandel."],
-  ["Neun", "Reife, Bilanz und beinahe Vollendung."],
-  ["Zehn", "Abschluss eines Zyklus und Übergang."],
-  ["Bube", "Neugier, Botschaft und frische Perspektive."],
-  ["Ritter", "Vorwärtsdrang, Einsatz und aktives Handeln."],
-  ["Königin", "Reife Empfänglichkeit, Intuition und Tiefe."],
-  ["König", "Souveränität, Klarheit und gestaltende Verantwortung."]
-];
-
-const suitMeaningFlavor = {
-  staves: "Tatkraft, Wille und kreativer Impuls stehen im Vordergrund.",
-  cups: "Gefühle, Verbindung und innere Resonanz prägen die Lage.",
-  swords: "Gedanken, Wahrheit und Entscheidungen treten in den Fokus.",
-  pentacles: "Materielle Basis, Körper und praktische Umsetzung sind zentral."
-};
-
 const tarotImageDataUrl = "https://raw.githubusercontent.com/metabismuth/tarot-json/master/tarot-images.json";
 const tarotImageBaseUrl = "https://raw.githubusercontent.com/metabismuth/tarot-json/master/cards/";
-
-const majorNameMapDeToEn = {
-  "der narr": "The Fool",
-  "der magier": "The Magician",
-  "die hohepriesterin": "The High Priestess",
-  "die herrscherin": "The Empress",
-  "der herrscher": "The Emperor",
-  "der hierophant": "The Hierophant",
-  "die liebenden": "The Lovers",
-  "der wagen": "The Chariot",
-  "die kraft": "Strength",
-  "der eremit": "The Hermit",
-  "das rad des schicksals": "Wheel of Fortune",
-  "die gerechtigkeit": "Justice",
-  "der gehangte": "The Hanged Man",
-  "der tod": "Death",
-  "die maßigkeit": "Temperance",
-  "der teufel": "The Devil",
-  "der turm": "The Tower",
-  "der stern": "The Star",
-  "der mond": "The Moon",
-  "die sonne": "The Sun",
-  "das gericht": "Judgement",
-  "die welt": "The World"
-};
-
-const minorRankMapDeToEn = {
-  ass: "Ace",
-  zwei: "Two",
-  drei: "Three",
-  vier: "Four",
-  funf: "Five",
-  sechs: "Six",
-  sieben: "Seven",
-  acht: "Eight",
-  neun: "Nine",
-  zehn: "Ten",
-  bube: "Page",
-  ritter: "Knight",
-  konigin: "Queen",
-  konig: "King"
-};
-
-const minorSuitMapDeToEn = {
-  stabe: "Wands",
-  kelche: "Cups",
-  schwerter: "Swords",
-  munzen: "Pentacles"
-};
-
-function buildMinorArcana() {
-  const suits = Object.keys(suitLabels);
-  const cards = [];
-
-  for (const suit of suits) {
-    for (const [rankName, rankMeaning] of ranks) {
-      const cardName = `${rankName} der ${suitLabels[suit]}`;
-      cards.push({
-        name: cardName,
-        arcana: "Kleine Arkana",
-        meta: `${rankName} • ${suitLabels[suit]}`,
-        symbol: suitSymbols[suit],
-        meaningUpright: `${rankMeaning} ${suitMeaningFlavor[suit]}`,
-        meaningReversed: `Blockierte Energie bei "${cardName}". Thema: ${suitMeaningFlavor[suit]}`
-      });
-    }
-  }
-
-  return cards;
-}
-
-function buildDeck() {
-  const majorCards = majorArcana.map(([name, number, upright, reversed]) => ({
-    name,
-    arcana: "Große Arkana",
-    meta: `Nummer ${number}`,
-    symbol: "✦",
-    meaningUpright: upright,
-    meaningReversed: reversed
-  }));
-
-  return [...majorCards, ...buildMinorArcana()];
-}
-
-const deck = buildDeck();
 
 const dom = {
   cardElement: document.getElementById("tarotCard"),
@@ -158,52 +10,18 @@ const dom = {
   cardHintElement: document.getElementById("cardHint"),
   cardNameElement: document.getElementById("cardName"),
   cardMetaElement: document.getElementById("cardMeta"),
-  meaningElement: document.getElementById("meaning"),
+  featureCardNameElement: document.getElementById("featureCardName"),
+  featureOrientationElement: document.getElementById("featureOrientation"),
   drawButton: document.getElementById("drawButton"),
-  interpretButton: document.getElementById("interpretButton"),
-  userContextInput: document.getElementById("userContext"),
-  interpretStatus: document.getElementById("interpretStatus"),
-  interpretationPanel: document.getElementById("interpretationPanel"),
-  interpretationList: document.getElementById("interpretationList"),
-  interpretationDisclaimer: document.getElementById("interpretationDisclaimer")
+  summaryElement: document.getElementById("cardSummary"),
+  buzzwordsElement: document.getElementById("buzzwords"),
+  dayImpulsesElement: document.getElementById("dayImpulses"),
+  shortTakeElement: document.getElementById("shortTake"),
+  closingSummaryElement: document.getElementById("closingSummary")
 };
 
 let currentDraw = null;
-let isGeneratingInterpretation = false;
 let tarotImageLookup = new Map();
-const initialMeaningText = "Noch ist alles offen. Zieh zuerst eine Karte, damit wir deine Botschaft lesen koennen.";
-
-function normalizeBaseUrl(url) {
-  if (typeof url !== "string") {
-    return "";
-  }
-
-  return url.trim().replace(/\/+$/, "");
-}
-
-function resolveApiBaseUrl() {
-  const configuredBaseUrl =
-    normalizeBaseUrl(window.TAROT_API_BASE_URL) ||
-    normalizeBaseUrl(document.querySelector('meta[name="tarot-api-base-url"]')?.content || "");
-
-  if (configuredBaseUrl) {
-    return configuredBaseUrl;
-  }
-
-  if (window.location.port === "3000") {
-    return "";
-  }
-
-  const host = window.location.hostname.toLowerCase();
-  if (host === "localhost" || host === "127.0.0.1") {
-    return `${window.location.protocol}//${window.location.hostname}:3000`;
-  }
-
-  return "";
-}
-
-const API_BASE_URL = resolveApiBaseUrl();
-const IS_GITHUB_PAGES = window.location.hostname.toLowerCase().endsWith(".github.io");
 
 function normalizeText(text) {
   return String(text || "")
@@ -211,26 +29,6 @@ function normalizeText(text) {
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
-}
-
-function toEnglishCardName(card) {
-  if (card.arcana === "Große Arkana") {
-    const key = normalizeText(card.name);
-    return majorNameMapDeToEn[key] || null;
-  }
-
-  const [rankPart, suitPart] = card.meta.split("•").map((part) => normalizeText(part));
-  if (!rankPart || !suitPart) {
-    return null;
-  }
-
-  const rankName = minorRankMapDeToEn[rankPart];
-  const suitName = minorSuitMapDeToEn[suitPart];
-  if (!rankName || !suitName) {
-    return null;
-  }
-
-  return `${rankName} of ${suitName}`;
 }
 
 async function loadTarotImageLookup() {
@@ -249,8 +47,7 @@ async function loadTarotImageLookup() {
         continue;
       }
 
-      const key = normalizeText(card.name);
-      map.set(key, `${tarotImageBaseUrl}${card.img}`);
+      map.set(normalizeText(card.name), `${tarotImageBaseUrl}${card.img}`);
     }
 
     tarotImageLookup = map;
@@ -260,8 +57,7 @@ async function loadTarotImageLookup() {
 }
 
 function updateCardImage(card) {
-  const englishName = toEnglishCardName(card);
-  const imageUrl = englishName ? tarotImageLookup.get(normalizeText(englishName)) : null;
+  const imageUrl = tarotImageLookup.get(normalizeText(card.imageNameEn));
 
   if (imageUrl) {
     dom.cardImageElement.onerror = () => {
@@ -281,12 +77,25 @@ function updateCardImage(card) {
   dom.symbolElement.hidden = false;
 }
 
-function clearInterpretationOutput() {
-  dom.interpretStatus.textContent = "";
-  dom.interpretStatus.classList.remove("error");
-  dom.interpretationPanel.hidden = true;
-  dom.interpretationList.innerHTML = "";
-  dom.interpretationDisclaimer.textContent = "";
+function renderBuzzwords(buzzwords) {
+  dom.buzzwordsElement.innerHTML = "";
+
+  for (const buzzword of buzzwords) {
+    const item = document.createElement("li");
+    item.className = "buzzword-chip";
+    item.textContent = buzzword;
+    dom.buzzwordsElement.appendChild(item);
+  }
+}
+
+function renderDayImpulses(dayImpulses) {
+  dom.dayImpulsesElement.innerHTML = "";
+
+  for (const impulse of dayImpulses) {
+    const item = document.createElement("li");
+    item.textContent = impulse;
+    dom.dayImpulsesElement.appendChild(item);
+  }
 }
 
 function setInitialCardState() {
@@ -300,27 +109,40 @@ function setInitialCardState() {
   dom.cardImageElement.hidden = true;
   dom.cardNameElement.textContent = "Noch keine Karte gezogen";
   dom.cardMetaElement.textContent = "Deine Botschaft wartet auf den ersten Klick.";
-  dom.meaningElement.textContent = initialMeaningText;
+  dom.featureCardNameElement.textContent = "Noch keine Karte gezogen";
+  dom.featureOrientationElement.textContent = "noch verborgen";
+  dom.summaryElement.textContent =
+    "Noch ist alles offen. Zieh zuerst eine Karte, damit ihre Tagesbedeutung sichtbar werden kann.";
+  renderBuzzwords(["Tageskarte", "Neugier", "Erster Schritt"]);
+  renderDayImpulses([
+    "Klick auf „Karte ziehen“, wenn du bereit fuer deinen Tagesimpuls bist.",
+    "Lies die gezogene Karte eher als Orientierung denn als starre Vorhersage.",
+    "Nimm dir nur das mit, was sich fuer dich heute wirklich stimmig anfuehlt."
+  ]);
+  dom.shortTakeElement.textContent = "Kurz gesagt: Deine Botschaft wartet auf ihren Moment.";
+  dom.closingSummaryElement.textContent =
+    "Zieh deine Karte und nimm mit, was heute sanft mit dir in Resonanz geht.";
 
   if (dom.cardHintElement) {
     dom.cardHintElement.hidden = false;
   }
-
-  clearInterpretationOutput();
-  dom.interpretButton.disabled = true;
 }
 
 function drawCard() {
+  const deck = Array.isArray(window.TAROT_DECK) ? window.TAROT_DECK : [];
   const randomCard = deck[Math.floor(Math.random() * deck.length)];
+
+  if (!randomCard) {
+    return;
+  }
+
   const isReversed = Math.random() < 0.5;
+  const meaning = isReversed ? randomCard.meanings.reversed : randomCard.meanings.upright;
 
   currentDraw = {
-    cardName: randomCard.name,
-    arcana: randomCard.arcana,
+    card: randomCard,
     isReversed,
-    meaningBase: isReversed ? randomCard.meaningReversed : randomCard.meaningUpright,
-    meta: randomCard.meta,
-    symbol: randomCard.symbol
+    meaning
   };
 
   dom.cardElement.classList.toggle("reversed", isReversed);
@@ -330,109 +152,20 @@ function drawCard() {
   updateCardImage(randomCard);
   dom.cardNameElement.textContent = randomCard.name;
   dom.cardMetaElement.textContent = randomCard.meta;
-  dom.meaningElement.textContent = currentDraw.meaningBase;
-  dom.interpretButton.disabled = false;
+  dom.featureCardNameElement.textContent = randomCard.name;
+  dom.featureOrientationElement.textContent = isReversed ? "umgedreht" : "aufrecht";
+  dom.summaryElement.textContent = meaning.summary;
+  renderBuzzwords(meaning.buzzwords);
+  renderDayImpulses(meaning.dayImpulses);
+  dom.shortTakeElement.textContent = meaning.shortTake;
+  dom.closingSummaryElement.textContent = meaning.shortTake.replace("Kurz gesagt: ", "");
 
   if (dom.cardHintElement) {
     dom.cardHintElement.hidden = true;
   }
-
-  clearInterpretationOutput();
-}
-
-function setLoadingState(isLoading) {
-  isGeneratingInterpretation = isLoading;
-  dom.interpretButton.disabled = isLoading;
-  dom.drawButton.disabled = isLoading;
-  dom.userContextInput.disabled = isLoading;
-}
-
-function renderInterpretation(bullets, disclaimer) {
-  dom.interpretationList.innerHTML = "";
-
-  for (const bullet of bullets) {
-    const item = document.createElement("li");
-    item.textContent = bullet;
-    dom.interpretationList.appendChild(item);
-  }
-
-  dom.interpretationDisclaimer.textContent = disclaimer || "";
-  dom.interpretationPanel.hidden = false;
-}
-
-async function requestInterpretation() {
-  if (isGeneratingInterpretation) {
-    return;
-  }
-
-  if (!currentDraw) {
-    dom.interpretStatus.textContent = "Zieh zuerst eine Karte, dann oeffnet sich die vertiefende Deutung.";
-    return;
-  }
-
-  if (IS_GITHUB_PAGES && !API_BASE_URL) {
-    dom.interpretStatus.textContent =
-      "GitHub Pages liefert nur das Frontend. Trage in config.js deine Backend-URL ein (siehe README).";
-    dom.interpretStatus.classList.add("error");
-    return;
-  }
-
-  clearInterpretationOutput();
-  dom.interpretStatus.textContent = "Ich webe gerade eine warme Deutung fuer dich...";
-
-  const rawContext = dom.userContextInput.value.trim();
-  const userContext = rawContext || "allgemeine Deutung für heute";
-
-  const payload = {
-    cardName: currentDraw.cardName,
-    arcana: currentDraw.arcana,
-    isReversed: currentDraw.isReversed,
-    meaningBase: currentDraw.meaningBase,
-    userContext
-  };
-
-  setLoadingState(true);
-
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/interpretation`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-
-    const responseJson = await response.json().catch(() => ({}));
-
-    if (!response.ok) {
-      throw new Error(responseJson.error || "Die Deutung konnte nicht erstellt werden.");
-    }
-
-    const bullets = Array.isArray(responseJson.bullets) ? responseJson.bullets : [];
-    const disclaimer = typeof responseJson.disclaimer === "string" ? responseJson.disclaimer : "";
-
-    if (bullets.length < 3 || bullets.length > 6) {
-      throw new Error("Die Antwort war nicht im erwarteten Format.");
-    }
-
-    renderInterpretation(bullets, disclaimer);
-    dom.interpretStatus.textContent = "Deutung bereit. Ich hoffe, sie gibt dir einen guten Impuls.";
-  } catch (error) {
-    if (error instanceof TypeError) {
-      dom.interpretStatus.textContent = IS_GITHUB_PAGES
-        ? "Backend nicht erreichbar. Pruefe config.js und ob dein API-Service online ist."
-        : "Backend nicht erreichbar. Starte den Server mit `npm start` im Projektordner.";
-    } else {
-      dom.interpretStatus.textContent = error.message || "Ein unbekannter Fehler ist aufgetreten.";
-    }
-    dom.interpretStatus.classList.add("error");
-  } finally {
-    setLoadingState(false);
-  }
 }
 
 dom.drawButton.addEventListener("click", drawCard);
-dom.interpretButton.addEventListener("click", requestInterpretation);
 
 setInitialCardState();
 loadTarotImageLookup();

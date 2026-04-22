@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="tarot-api-base-url" content="">
   <title>Die Kartenstube</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mystery+Quest&display=swap" rel="stylesheet">
 </head>
 <body>
   <main class="app">
@@ -35,36 +37,56 @@
       </section>
 
       <section class="right-column">
-        <section class="panel">
-          <h3 class="meaning-title">Grundbotschaft</h3>
-          <p id="meaning" class="meaning-text">Noch ist alles offen. Zieh zuerst eine Karte, damit wir deine Botschaft lesen koennen.</p>
-        </section>
+        <section class="reading-sheet panel">
+          <header class="sheet-header">
+            <p class="sheet-kicker">Tageskarte</p>
+            <h2 id="featureCardName" class="feature-card-name">Noch keine Karte gezogen</h2>
+            <div class="ornament-row">
+              <span class="ornament-line" aria-hidden="true"></span>
+              <p id="featureOrientation" class="feature-orientation">noch verborgen</p>
+              <span class="ornament-line" aria-hidden="true"></span>
+            </div>
+          </header>
 
-        <section class="panel ai-panel">
-          <h3 class="meaning-title">Dein Fokus</h3>
-          <label class="input-label" for="userContext">Worauf soll sich deine Deutung beziehen?</label>
-          <textarea
-            id="userContext"
-            class="context-input"
-            rows="3"
-            maxlength="500"
-            placeholder="z. B. Tageskarte, Beziehung, Entscheidung, berufliches Thema"
-          ></textarea>
-          <div class="actions ai-actions">
-            <button id="interpretButton" type="button">Deutung vertiefen</button>
-          </div>
-          <p id="interpretStatus" class="interpret-status" aria-live="polite"></p>
-          <section id="interpretationPanel" class="interpretation-panel" hidden>
-            <h4 class="meaning-title">Vertiefende Deutung</h4>
-            <ul id="interpretationList" class="interpretation-list"></ul>
-            <p id="interpretationDisclaimer" class="interpret-disclaimer"></p>
+          <section class="meaning-box summary-box">
+            <div class="box-heading">
+              <span class="heading-icon icon-spiral" aria-hidden="true"></span>
+              <h3 class="meaning-section-title">Bedeutung fuer deinen Tag</h3>
+            </div>
+            <ul id="buzzwords" class="buzzwords" aria-label="Schlagworte zur Tageskarte"></ul>
+            <p id="cardSummary" class="meaning-text">Noch ist alles offen. Zieh zuerst eine Karte, damit ihre Tagesbedeutung sichtbar werden kann.</p>
+          </section>
+
+          <section class="meaning-group">
+            <div class="ornament-label">
+              <span class="leaf-line" aria-hidden="true"></span>
+              <h3 class="meaning-title">Impulse fuer deinen Tag</h3>
+              <span class="leaf-line" aria-hidden="true"></span>
+            </div>
+            <ul id="dayImpulses" class="impulse-list"></ul>
+          </section>
+
+          <section class="anchor-box">
+            <div class="box-heading">
+              <span class="heading-icon icon-feather" aria-hidden="true"></span>
+              <h3 class="meaning-section-title">Dein 1-Satz-Anker fuer heute</h3>
+            </div>
+            <p id="shortTake" class="anchor-text">Kurz gesagt: Deine Botschaft wartet auf ihren Moment.</p>
+          </section>
+
+          <section class="meaning-box closing-box">
+            <div class="box-heading">
+              <span class="heading-icon icon-stars" aria-hidden="true"></span>
+              <h3 class="meaning-section-title">Kurz gesagt</h3>
+            </div>
+            <p id="closingSummary" class="closing-text">Zieh deine Karte und nimm mit, was heute sanft mit dir in Resonanz geht.</p>
           </section>
         </section>
       </section>
     </div>
   </main>
 
-  <script src="config.js"></script>
+  <script src="tarot-data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
