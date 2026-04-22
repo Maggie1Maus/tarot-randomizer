@@ -155,6 +155,7 @@ const dom = {
   arcanaElement: document.getElementById("arcana"),
   cardImageElement: document.getElementById("cardImage"),
   symbolElement: document.getElementById("symbol"),
+  cardHintElement: document.getElementById("cardHint"),
   cardNameElement: document.getElementById("cardName"),
   cardMetaElement: document.getElementById("cardMeta"),
   meaningElement: document.getElementById("meaning"),
@@ -170,10 +171,39 @@ const dom = {
 let currentDraw = null;
 let isGeneratingInterpretation = false;
 let tarotImageLookup = new Map();
-const API_BASE_URL =
-  window.location.port === "3000"
-    ? ""
-    : `${window.location.protocol}//${window.location.hostname}:3000`;
+const initialMeaningText = "Noch ist alles offen. Zieh zuerst eine Karte, damit wir deine Botschaft lesen koennen.";
+
+function normalizeBaseUrl(url) {
+  if (typeof url !== "string") {
+    return "";
+  }
+
+  return url.trim().replace(/\/+$/, "");
+}
+
+function resolveApiBaseUrl() {
+  const configuredBaseUrl =
+    normalizeBaseUrl(window.TAROT_API_BASE_URL) ||
+    normalizeBaseUrl(document.querySelector('meta[name="tarot-api-base-url"]')?.content || "");
+
+  if (configuredBaseUrl) {
+    return configuredBaseUrl;
+  }
+
+  if (window.location.port === "3000") {
+    return "";
+  }
+
+  const host = window.location.hostname.toLowerCase();
+  if (host === "localhost" || host === "127.0.0.1") {
+    return `${window.location.protocol}//${window.location.hostname}:3000`;
+  }
+
+  return "";
+}
+
+const API_BASE_URL = resolveApiBaseUrl();
+const IS_GITHUB_PAGES = window.location.hostname.toLowerCase().endsWith(".github.io");
 
 function normalizeText(text) {
   return String(text || "")
@@ -259,6 +289,27 @@ function clearInterpretationOutput() {
   dom.interpretationDisclaimer.textContent = "";
 }
 
+function setInitialCardState() {
+  dom.cardElement.classList.remove("reversed");
+  dom.drawTypeElement.textContent = "Noch verborgen";
+  dom.arcanaElement.textContent = "Wartet auf deinen Zieh-Moment";
+  dom.symbolElement.textContent = "🔮";
+  dom.symbolElement.hidden = false;
+  dom.cardImageElement.removeAttribute("src");
+  dom.cardImageElement.alt = "";
+  dom.cardImageElement.hidden = true;
+  dom.cardNameElement.textContent = "Noch keine Karte gezogen";
+  dom.cardMetaElement.textContent = "Deine Botschaft wartet auf den ersten Klick.";
+  dom.meaningElement.textContent = initialMeaningText;
+
+  if (dom.cardHintElement) {
+    dom.cardHintElement.hidden = false;
+  }
+
+  clearInterpretationOutput();
+  dom.interpretButton.disabled = true;
+}
+
 function drawCard() {
   const randomCard = deck[Math.floor(Math.random() * deck.length)];
   const isReversed = Math.random() < 0.5;
@@ -280,6 +331,11 @@ function drawCard() {
   dom.cardNameElement.textContent = randomCard.name;
   dom.cardMetaElement.textContent = randomCard.meta;
   dom.meaningElement.textContent = currentDraw.meaningBase;
+  dom.interpretButton.disabled = false;
+
+  if (dom.cardHintElement) {
+    dom.cardHintElement.hidden = true;
+  }
 
   clearInterpretationOutput();
 }
@@ -310,11 +366,19 @@ async function requestInterpretation() {
   }
 
   if (!currentDraw) {
-    drawCard();
+    dom.interpretStatus.textContent = "Zieh zuerst eine Karte, dann oeffnet sich die vertiefende Deutung.";
+    return;
+  }
+
+  if (IS_GITHUB_PAGES && !API_BASE_URL) {
+    dom.interpretStatus.textContent =
+      "GitHub Pages liefert nur das Frontend. Trage in config.js deine Backend-URL ein (siehe README).";
+    dom.interpretStatus.classList.add("error");
+    return;
   }
 
   clearInterpretationOutput();
-  dom.interpretStatus.textContent = "KI-Deutung wird erstellt...";
+  dom.interpretStatus.textContent = "Ich webe gerade eine warme Deutung fuer dich...";
 
   const rawContext = dom.userContextInput.value.trim();
   const userContext = rawContext || "allgemeine Deutung für heute";
@@ -341,22 +405,23 @@ async function requestInterpretation() {
     const responseJson = await response.json().catch(() => ({}));
 
     if (!response.ok) {
-      throw new Error(responseJson.error || "Die KI-Deutung konnte nicht erstellt werden.");
+      throw new Error(responseJson.error || "Die Deutung konnte nicht erstellt werden.");
     }
 
     const bullets = Array.isArray(responseJson.bullets) ? responseJson.bullets : [];
     const disclaimer = typeof responseJson.disclaimer === "string" ? responseJson.disclaimer : "";
 
     if (bullets.length < 3 || bullets.length > 6) {
-      throw new Error("Die KI-Antwort war nicht im erwarteten Format.");
+      throw new Error("Die Antwort war nicht im erwarteten Format.");
     }
 
     renderInterpretation(bullets, disclaimer);
-    dom.interpretStatus.textContent = "KI-Deutung bereit.";
+    dom.interpretStatus.textContent = "Deutung bereit. Ich hoffe, sie gibt dir einen guten Impuls.";
   } catch (error) {
     if (error instanceof TypeError) {
-      dom.interpretStatus.textContent =
-        "Backend nicht erreichbar. Starte den Server mit `npm start` im Projektordner.";
+      dom.interpretStatus.textContent = IS_GITHUB_PAGES
+        ? "Backend nicht erreichbar. Pruefe config.js und ob dein API-Service online ist."
+        : "Backend nicht erreichbar. Starte den Server mit `npm start` im Projektordner.";
     } else {
       dom.interpretStatus.textContent = error.message || "Ein unbekannter Fehler ist aufgetreten.";
     }
@@ -369,4 +434,5 @@ async function requestInterpretation() {
 dom.drawButton.addEventListener("click", drawCard);
 dom.interpretButton.addEventListener("click", requestInterpretation);
 
-loadTarotImageLookup().finally(drawCard);
+setInitialCardState();
+loadTarotImageLookup();

@@ -3,27 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tarot Randomizer</title>
-    <link rel="stylesheet" href="style.css">
+  <meta name="tarot-api-base-url" content="">
+  <title>Die Kartenstube</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="app">
-    <h1 class="title">Tarot Randomizer</h1>
-    <p class="subtitle">Ziehe eine Karte und entdecke deine Botschaft.</p>
+    <h1 class="title">Die Kartenstube</h1>
+    <p class="subtitle">Mach es dir gemuetlich, zieh eine Karte und lausche deiner Botschaft.</p>
     <div class="layout">
       <section class="left-column">
         <article id="tarotCard" class="tarot-card" aria-live="polite">
           <div class="card-topline">
-            <span id="drawType">Aufrecht</span>
-            <span id="arcana" class="arcana-chip">Große Arkana</span>
+            <span id="drawType">Noch verborgen</span>
+            <span id="arcana" class="arcana-chip">Wartet auf deinen Zieh-Moment</span>
           </div>
           <div class="card-illustration">
             <img id="cardImage" class="card-image" alt="" hidden>
-            <div id="symbol" class="symbol">✦</div>
+            <div id="symbol" class="symbol">🔮</div>
+            <p id="cardHint" class="card-hint">Tippe auf „Karte ziehen“ und lass die Karten fuer dich fluestern.</p>
           </div>
           <div>
-            <h2 id="cardName" class="card-name">Der Narr</h2>
-            <p id="cardMeta" class="card-meta">Nummer 0</p>
+            <h2 id="cardName" class="card-name">Noch keine Karte gezogen</h2>
+            <p id="cardMeta" class="card-meta">Deine Botschaft wartet auf den ersten Klick.</p>
           </div>
         </article>
 
@@ -34,13 +36,13 @@
 
       <section class="right-column">
         <section class="panel">
-          <h3 class="meaning-title">Bedeutung</h3>
-          <p id="meaning" class="meaning-text">Ein neuer Zyklus beginnt. Vertraue dem ersten Schritt.</p>
+          <h3 class="meaning-title">Grundbotschaft</h3>
+          <p id="meaning" class="meaning-text">Noch ist alles offen. Zieh zuerst eine Karte, damit wir deine Botschaft lesen koennen.</p>
         </section>
 
         <section class="panel ai-panel">
           <h3 class="meaning-title">Dein Fokus</h3>
-          <label class="input-label" for="userContext">Worauf soll sich die KI-Deutung beziehen?</label>
+          <label class="input-label" for="userContext">Worauf soll sich deine Deutung beziehen?</label>
           <textarea
             id="userContext"
             class="context-input"
@@ -49,11 +51,11 @@
             placeholder="z. B. Tageskarte, Beziehung, Entscheidung, berufliches Thema"
           ></textarea>
           <div class="actions ai-actions">
-            <button id="interpretButton" type="button">KI-Deutung erstellen</button>
+            <button id="interpretButton" type="button">Deutung vertiefen</button>
           </div>
           <p id="interpretStatus" class="interpret-status" aria-live="polite"></p>
           <section id="interpretationPanel" class="interpretation-panel" hidden>
-            <h4 class="meaning-title">KI-Deutung</h4>
+            <h4 class="meaning-title">Vertiefende Deutung</h4>
             <ul id="interpretationList" class="interpretation-list"></ul>
             <p id="interpretationDisclaimer" class="interpret-disclaimer"></p>
           </section>
@@ -62,6 +64,7 @@
     </div>
   </main>
 
-    <script src="script.js"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

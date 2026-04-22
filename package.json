@@ -2,7 +2,7 @@
   "name": "tarot-randomizer",
   "version": "1.0.0",
   "private": true,
-  "description": "Tarot Randomizer mit KI-Deutung",
+  "description": "Cozy Tarot Randomizer mit vertiefender Deutung",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

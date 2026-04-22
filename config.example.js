@@ -1,0 +1,1 @@
+window.TAROT_API_BASE_URL = "";
