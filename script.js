@@ -16,7 +16,6 @@ const dom = {
   summaryElement: document.getElementById("cardSummary"),
   buzzwordsElement: document.getElementById("buzzwords"),
   dayImpulsesElement: document.getElementById("dayImpulses"),
-  shortTakeElement: document.getElementById("shortTake"),
   closingSummaryElement: document.getElementById("closingSummary")
 };
 
@@ -119,7 +118,6 @@ function setInitialCardState() {
     "Lies die gezogene Karte eher als Orientierung denn als starre Vorhersage.",
     "Nimm dir nur das mit, was sich für dich heute wirklich stimmig anfühlt."
   ]);
-  dom.shortTakeElement.textContent = "Kurz gesagt: Deine Botschaft wartet auf ihren Moment.";
   dom.closingSummaryElement.textContent =
     "Zieh deine Karte und nimm mit, was heute sanft mit dir in Resonanz geht.";
 
@@ -157,7 +155,6 @@ function drawCard() {
   dom.summaryElement.textContent = meaning.summary;
   renderBuzzwords(meaning.buzzwords);
   renderDayImpulses(meaning.dayImpulses);
-  dom.shortTakeElement.textContent = meaning.shortTake;
   dom.closingSummaryElement.textContent = meaning.shortTake.replace("Kurz gesagt: ", "");
 
   if (dom.cardHintElement) {
